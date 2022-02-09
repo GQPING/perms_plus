@@ -1,0 +1,193 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="generate.SysMenuDao">
+  <resultMap id="BaseResultMap" type="generate.SysMenu">
+    <id column="menu_id" jdbcType="BIGINT" property="menuId" />
+    <result column="parent_id" jdbcType="BIGINT" property="parentId" />
+    <result column="menu_name" jdbcType="VARCHAR" property="menuName" />
+    <result column="menu_type" jdbcType="CHAR" property="menuType" />
+    <result column="menu_perms" jdbcType="VARCHAR" property="menuPerms" />
+    <result column="icon" jdbcType="VARCHAR" property="icon" />
+    <result column="path" jdbcType="VARCHAR" property="path" />
+    <result column="path_name" jdbcType="VARCHAR" property="pathName" />
+    <result column="component" jdbcType="VARCHAR" property="component" />
+    <result column="status" jdbcType="CHAR" property="status" />
+    <result column="visible" jdbcType="CHAR" property="visible" />
+    <result column="order_num" jdbcType="INTEGER" property="orderNum" />
+    <result column="frame" jdbcType="CHAR" property="frame" />
+    <result column="cache" jdbcType="CHAR" property="cache" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    menu_id, parent_id, menu_name, menu_type, menu_perms, icon, `path`, path_name, component, 
+    `status`, visible, order_num, frame, `cache`
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Long" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from sys_menu
+    where menu_id = #{menuId,jdbcType=BIGINT}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long">
+    delete from sys_menu
+    where menu_id = #{menuId,jdbcType=BIGINT}
+  </delete>
+  <insert id="insert" keyColumn="menu_id" keyProperty="menuId" parameterType="generate.SysMenu" useGeneratedKeys="true">
+    insert into sys_menu (parent_id, menu_name, menu_type, 
+      menu_perms, icon, `path`, 
+      path_name, component, `status`, 
+      visible, order_num, frame, 
+      `cache`)
+    values (#{parentId,jdbcType=BIGINT}, #{menuName,jdbcType=VARCHAR}, #{menuType,jdbcType=CHAR}, 
+      #{menuPerms,jdbcType=VARCHAR}, #{icon,jdbcType=VARCHAR}, #{path,jdbcType=VARCHAR}, 
+      #{pathName,jdbcType=VARCHAR}, #{component,jdbcType=VARCHAR}, #{status,jdbcType=CHAR}, 
+      #{visible,jdbcType=CHAR}, #{orderNum,jdbcType=INTEGER}, #{frame,jdbcType=CHAR}, 
+      #{cache,jdbcType=CHAR})
+  </insert>
+  <insert id="insertSelective" keyColumn="menu_id" keyProperty="menuId" parameterType="generate.SysMenu" useGeneratedKeys="true">
+    insert into sys_menu
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="parentId != null">
+        parent_id,
+      </if>
+      <if test="menuName != null">
+        menu_name,
+      </if>
+      <if test="menuType != null">
+        menu_type,
+      </if>
+      <if test="menuPerms != null">
+        menu_perms,
+      </if>
+      <if test="icon != null">
+        icon,
+      </if>
+      <if test="path != null">
+        `path`,
+      </if>
+      <if test="pathName != null">
+        path_name,
+      </if>
+      <if test="component != null">
+        component,
+      </if>
+      <if test="status != null">
+        `status`,
+      </if>
+      <if test="visible != null">
+        visible,
+      </if>
+      <if test="orderNum != null">
+        order_num,
+      </if>
+      <if test="frame != null">
+        frame,
+      </if>
+      <if test="cache != null">
+        `cache`,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="parentId != null">
+        #{parentId,jdbcType=BIGINT},
+      </if>
+      <if test="menuName != null">
+        #{menuName,jdbcType=VARCHAR},
+      </if>
+      <if test="menuType != null">
+        #{menuType,jdbcType=CHAR},
+      </if>
+      <if test="menuPerms != null">
+        #{menuPerms,jdbcType=VARCHAR},
+      </if>
+      <if test="icon != null">
+        #{icon,jdbcType=VARCHAR},
+      </if>
+      <if test="path != null">
+        #{path,jdbcType=VARCHAR},
+      </if>
+      <if test="pathName != null">
+        #{pathName,jdbcType=VARCHAR},
+      </if>
+      <if test="component != null">
+        #{component,jdbcType=VARCHAR},
+      </if>
+      <if test="status != null">
+        #{status,jdbcType=CHAR},
+      </if>
+      <if test="visible != null">
+        #{visible,jdbcType=CHAR},
+      </if>
+      <if test="orderNum != null">
+        #{orderNum,jdbcType=INTEGER},
+      </if>
+      <if test="frame != null">
+        #{frame,jdbcType=CHAR},
+      </if>
+      <if test="cache != null">
+        #{cache,jdbcType=CHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="generate.SysMenu">
+    update sys_menu
+    <set>
+      <if test="parentId != null">
+        parent_id = #{parentId,jdbcType=BIGINT},
+      </if>
+      <if test="menuName != null">
+        menu_name = #{menuName,jdbcType=VARCHAR},
+      </if>
+      <if test="menuType != null">
+        menu_type = #{menuType,jdbcType=CHAR},
+      </if>
+      <if test="menuPerms != null">
+        menu_perms = #{menuPerms,jdbcType=VARCHAR},
+      </if>
+      <if test="icon != null">
+        icon = #{icon,jdbcType=VARCHAR},
+      </if>
+      <if test="path != null">
+        `path` = #{path,jdbcType=VARCHAR},
+      </if>
+      <if test="pathName != null">
+        path_name = #{pathName,jdbcType=VARCHAR},
+      </if>
+      <if test="component != null">
+        component = #{component,jdbcType=VARCHAR},
+      </if>
+      <if test="status != null">
+        `status` = #{status,jdbcType=CHAR},
+      </if>
+      <if test="visible != null">
+        visible = #{visible,jdbcType=CHAR},
+      </if>
+      <if test="orderNum != null">
+        order_num = #{orderNum,jdbcType=INTEGER},
+      </if>
+      <if test="frame != null">
+        frame = #{frame,jdbcType=CHAR},
+      </if>
+      <if test="cache != null">
+        `cache` = #{cache,jdbcType=CHAR},
+      </if>
+    </set>
+    where menu_id = #{menuId,jdbcType=BIGINT}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="generate.SysMenu">
+    update sys_menu
+    set parent_id = #{parentId,jdbcType=BIGINT},
+      menu_name = #{menuName,jdbcType=VARCHAR},
+      menu_type = #{menuType,jdbcType=CHAR},
+      menu_perms = #{menuPerms,jdbcType=VARCHAR},
+      icon = #{icon,jdbcType=VARCHAR},
+      `path` = #{path,jdbcType=VARCHAR},
+      path_name = #{pathName,jdbcType=VARCHAR},
+      component = #{component,jdbcType=VARCHAR},
+      `status` = #{status,jdbcType=CHAR},
+      visible = #{visible,jdbcType=CHAR},
+      order_num = #{orderNum,jdbcType=INTEGER},
+      frame = #{frame,jdbcType=CHAR},
+      `cache` = #{cache,jdbcType=CHAR}
+    where menu_id = #{menuId,jdbcType=BIGINT}
+  </update>
+</mapper>

@@ -11,7 +11,6 @@ import java.util.List;
  * @description 用户信息表类实体
  * @date 2022-02-08
  */
-@Data
 public class SysUser implements Serializable {
     private static final long serialVersionUID = -85594038288044041L;
     /**

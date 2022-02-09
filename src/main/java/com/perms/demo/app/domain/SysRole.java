@@ -9,7 +9,6 @@ import java.util.List;
  * @description 角色信息表类实体
  * @date 2022-02-08
  */
-@Data
 public class SysRole implements Serializable {
     private static final long serialVersionUID = 624836802999248903L;
     /**
