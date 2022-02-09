@@ -4,7 +4,6 @@ import com.perms.demo.app.domain.LoginUser;
 import com.perms.demo.app.domain.SysUser;
 import com.perms.demo.app.service.SysUserService;
 import com.perms.demo.exception.BaseException;
-import com.perms.demo.exception.ServiceException;
 import com.perms.demo.token.SysPermissionService;
 import com.perms.demo.utils.StringUtils;
 import com.perms.demo.utils.enums.UserStatus;
@@ -21,14 +20,14 @@ import java.util.Set;
 
 /**
  * 用户验证处理
- *
+ * <p>
  * Spring Security提供了 UserDetailsService接口 用于用户身份认证
  *
  * @author ruoyi
  */
 @Service
-public class UserDetailsServiceImpl implements UserDetailsService
-{
+public class UserDetailsServiceImpl implements UserDetailsService {
+
     private static final Logger log = LoggerFactory.getLogger(UserDetailsServiceImpl.class);
 
     @Autowired
@@ -63,6 +62,7 @@ public class UserDetailsServiceImpl implements UserDetailsService
 
     /**
      * 生成登录用户对象
+     *
      * @param user
      * @return
      */

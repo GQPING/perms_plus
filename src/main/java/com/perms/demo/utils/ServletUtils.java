@@ -37,6 +37,9 @@ public class ServletUtils {
         return getRequest().getSession();
     }
 
+    /**
+     * 获取attributes
+     */
     public static ServletRequestAttributes getRequestAttributes() {
         RequestAttributes attributes = RequestContextHolder.getRequestAttributes();
         return (ServletRequestAttributes) attributes;

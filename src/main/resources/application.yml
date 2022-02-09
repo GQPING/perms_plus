@@ -3,7 +3,7 @@ lkdp:
   # 名称
   name: lankao-dp
   # 版本
-  version: 3.8.1
+  version: 1.0.1
   # 验证码类型 math 数组计算 char 字符验证
   captchaType: math
 
@@ -22,10 +22,6 @@ server:
 
 # spring 配置
 spring:
-  # 资源信息
-  messages:
-    # 国际化资源文件路径
-    basename: i18n/messages
   # 服务模块
   devtools:
     restart:

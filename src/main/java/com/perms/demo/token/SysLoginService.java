@@ -1,13 +1,10 @@
 package com.perms.demo.token;
 
-import com.perms.demo.app.domain.AjaxResult;
 import com.perms.demo.app.domain.LoginUser;
 import com.perms.demo.app.domain.SysUser;
 import com.perms.demo.app.service.SysUserService;
 import com.perms.demo.exception.*;
 import com.perms.demo.redis.RedisCache;
-import com.perms.demo.token.TokenService;
-import com.perms.demo.utils.DateUtils;
 import com.perms.demo.utils.ServletUtils;
 import com.perms.demo.utils.constant.Constants;
 import com.perms.demo.utils.ip.IpUtils;
@@ -19,6 +16,7 @@ import org.springframework.security.authentication.UsernamePasswordAuthenticatio
 import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Component;
 import javax.annotation.Resource;
+import java.util.Date;
 
 /**
  * 登录校验方法
@@ -113,7 +111,7 @@ public class SysLoginService {
         SysUser sysUser = new SysUser();
         sysUser.setUserId(userId);
         sysUser.setLoginIp(IpUtils.getIpAddr(ServletUtils.getRequest()));
-        sysUser.setLoginDate(DateUtils.getNowDate());
+        sysUser.setLoginDate(new Date());
         sysUserService.update(sysUser);
     }
 }
