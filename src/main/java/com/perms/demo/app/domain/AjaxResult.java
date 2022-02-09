@@ -1,13 +1,9 @@
 package com.perms.demo.app.domain;
 
-import com.alibaba.fastjson.annotation.JSONField;
 import com.perms.demo.utils.StringUtils;
 import com.perms.demo.utils.constant.HttpStatus;
-import org.springframework.security.core.GrantedAuthority;
-import org.springframework.security.core.userdetails.UserDetails;
-import java.util.Collection;
+
 import java.util.HashMap;
-import java.util.Set;
 
 /**
  * @author cxw

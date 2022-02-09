@@ -24,6 +24,7 @@ import java.io.IOException;
  */
 @Configuration
 public class LogoutSuccessHandlerImpl implements LogoutSuccessHandler {
+
     @Autowired
     private TokenService tokenService;
 
@@ -35,7 +36,9 @@ public class LogoutSuccessHandlerImpl implements LogoutSuccessHandler {
     @Override
     public void onLogoutSuccess(HttpServletRequest request, HttpServletResponse response, Authentication authentication)
             throws IOException, ServletException {
+        //获取当前用户
         LoginUser loginUser = tokenService.getLoginUser(request);
+        //当用户信息存在，清除缓存信息
         if (StringUtils.isNotNull(loginUser)) {
             // 删除用户缓存记录
             tokenService.delLoginUser(loginUser.getToken());

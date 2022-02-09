@@ -21,10 +21,12 @@ import java.io.IOException;
  * 任何请求都会执行此类
  * 检查请求是否具有有效的JWT令牌。如果它具有有效的JWT令牌，
  * 则它将在上下文中设置Authentication，以指定当前用户已通过身份验证。
+ *
  * @author ruoyi
  */
 @Component
 public class JwtAuthenticationTokenFilter extends OncePerRequestFilter {
+
     @Autowired
     private TokenService tokenService;
 
