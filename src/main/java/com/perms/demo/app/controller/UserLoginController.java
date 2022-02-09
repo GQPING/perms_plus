@@ -35,8 +35,8 @@ public class UserLoginController {
 //     * @param loginBody 登录信息
 //     * @return 结果
 //     */
-//    @PostMapping("/login1")
-//    public AjaxResult login1(@RequestBody LoginBody loginBody) {
+//    @PostMapping("/login")
+//    public AjaxResult login(@RequestBody LoginBody loginBody) {
 //        AjaxResult ajax = AjaxResult.success();
 //        // 生成令牌
 //        String token = loginService.login(loginBody.getUsername(), loginBody.getPassword(), loginBody.getCode(),
@@ -46,15 +46,15 @@ public class UserLoginController {
 //    }
 
     /**
-     * 登录方法 admin
+     * 登录方法 get请求
      *
      * @return 结果
      */
     @GetMapping("/login")
-    public AjaxResult login() {
+    public AjaxResult login(String userName, String password) {
         LoginBody loginBody = new LoginBody();
-        loginBody.setUsername("admin");
-        loginBody.setPassword("123456");
+        loginBody.setUsername(userName);
+        loginBody.setPassword(password);
         AjaxResult ajax = AjaxResult.success();
         // 生成令牌
         String token = loginService.login(loginBody.getUsername(), loginBody.getPassword(), loginBody.getCode(),
@@ -62,24 +62,6 @@ public class UserLoginController {
         ajax.put(Constants.TOKEN, token);
         return ajax;
     }
-
-//    /**
-//     * 登录方法 普通用戶
-//     *
-//     * @return 结果
-//     */
-//    @GetMapping("/login")
-//    public AjaxResult login() {
-//        LoginBody loginBody = new LoginBody();
-//        loginBody.setUsername("cxw1");
-//        loginBody.setPassword("123456");
-//        AjaxResult ajax = AjaxResult.success();
-//        // 生成令牌
-//        String token = loginService.login(loginBody.getUsername(), loginBody.getPassword(), loginBody.getCode(),
-//                loginBody.getUuid());
-//        ajax.put(Constants.TOKEN, token);
-//        return ajax;
-//    }
 
     /**
      * 获取用户信息，先登录获取 token，再给该请求的 Headers 配置：
@@ -103,15 +85,18 @@ public class UserLoginController {
 
     /**
      * 获取路由信息
+     *
      * @return 路由信息
      */
-    @GetMapping("getRouters")
-    public AjaxResult getRouters()
-    {
-        Long userId = SecurityUtils.getUserId();
-        List<SysMenu> menus = menuService.selectMenuTreeByUserId(userId);
-        return AjaxResult.success(menuService.buildMenus(menus));
-    }
+//    @GetMapping("getRouters")
+//    public AjaxResult getRouters() {
+//        //获取当前用户
+//        Long userId = SecurityUtils.getUserId();
+//        //获取当前用户所有菜单权限
+//        List<SysMenu> menus = menuService.selectMenuTreeByUserId(userId);
+//        //获取用户可访问的路由信息
+//        return AjaxResult.success(menuService.buildMenus(menus));
+//    }
 
     /**
      * 测试接口权限1 , 200 OK
