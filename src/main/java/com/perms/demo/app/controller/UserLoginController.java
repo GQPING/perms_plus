@@ -1,9 +1,6 @@
 package com.perms.demo.app.controller;
 
-import com.perms.demo.app.domain.LoginUser;
-import com.perms.demo.app.domain.SysUser;
-import com.perms.demo.app.domain.AjaxResult;
-import com.perms.demo.app.domain.LoginBody;
+import com.perms.demo.app.domain.*;
 import com.perms.demo.security.SysLoginService;
 import com.perms.demo.security.SysPermissionService;
 import com.perms.demo.utils.SecurityUtils;
@@ -13,6 +10,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
 import java.util.Set;
 
 /**
@@ -101,6 +99,18 @@ public class UserLoginController {
         ajax.put("roles", rolePermissions);
         ajax.put("permissions", menuPermissions);
         return ajax;
+    }
+
+    /**
+     * 获取路由信息
+     * @return 路由信息
+     */
+    @GetMapping("getRouters")
+    public AjaxResult getRouters()
+    {
+        Long userId = SecurityUtils.getUserId();
+        List<SysMenu> menus = menuService.selectMenuTreeByUserId(userId);
+        return AjaxResult.success(menuService.buildMenus(menus));
     }
 
     /**
