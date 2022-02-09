@@ -1,7 +1,6 @@
 package com.perms.demo.app.controller;
 
 import com.google.code.kaptcha.Producer;
-import com.perms.demo.config.RuoYiConfig;
 import com.perms.demo.redis.RedisCache;
 import com.perms.demo.app.domain.AjaxResult;
 import com.perms.demo.utils.constant.Constants;
@@ -51,8 +50,8 @@ public class CaptchaController {
         String capStr = null, code = null;
         BufferedImage image = null;
 
-        // 生成验证码
-        String captchaType = RuoYiConfig.getCaptchaType();
+        // 生成验证码 math 数组计算 char 字符验证
+        String captchaType = "char";
         if ("math".equals(captchaType)) {
             String capText = captchaProducerMath.createText();
             capStr = capText.substring(0, capText.lastIndexOf("@"));
