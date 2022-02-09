@@ -2,6 +2,24 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.perms.demo.app.mapper.SysMenuMapper">
 
+    <resultMap type="com.perms.demo.app.domain.SysMenu" id="SysMenuResult">
+        <id     property="menuId"         column="menu_id"        />
+        <result property="parentId"       column="parent_id"      />
+        <result property="menuName"       column="menu_name"      />
+        <result property="menuType"       column="menu_type"      />
+        <result property="menuPerms"      column="menu_perms"     />
+        <result property="icon"           column="icon"           />
+        <result property="path"           column="path"           />
+        <result property="pathName"       column="path_name"      />
+        <result property="component"      column="component"      />
+        <result property="status"         column="status"         />
+        <result property="visible"        column="visible"        />
+        <result property="orderNum"       column="order_num"      />
+        <result property="frame"          column="frame"          />
+        <result property="cache"          column="cache"          />
+        <result property="query"          column="query"          />
+    </resultMap>
+
     <!--根据用户ID查询权限-->
     <select id="selectMenuPermsByUserId" parameterType="Long" resultType="String">
         select distinct m.menu_perms
@@ -10,6 +28,57 @@
         left join sys_user_role ur on rm.role_id = ur.role_id
         left join sys_role r on r.role_id = ur.role_id
         where ur.user_id = #{userId}
+    </select>
+
+    <!--查询菜单树-->
+    <select id="selectMenuTreeAll" resultMap="SysMenuResult">
+        select distinct m.menu_id,
+                        m.parent_id,
+                        m.menu_name,
+                        m.menu_type,
+                        ifnull(m.menu_perms, '') as menu_perms,
+                        m.icon,
+                        m.path,
+                        m.path_name,
+                        m.component,
+                        m.status,
+                        m.visible,
+                        m.order_num,
+                        m.frame,
+                        m.cache,
+                        m.query
+        from sys_menu m
+        where m.menu_type in ('1', '2')
+        and m.status = '1'
+        order by m.parent_id, m.order_num
+    </select>
+
+    <!--根据用户ID查询菜单树-->
+    <select id="selectMenuTreeByUserId" resultMap="SysMenuResult">
+        select distinct m.menu_id,
+                        m.parent_id,
+                        m.menu_name,
+                        m.menu_type,
+                        ifnull(m.menu_perms, '') as menu_perms,
+                        m.icon,
+                        m.path,
+                        m.path_name,
+                        m.component,
+                        m.status,
+                        m.visible,
+                        m.order_num,
+                        m.frame,
+                        m.cache,
+                        m.query
+        from sys_menu m
+        left join sys_role_menu rm on m.menu_id = rm.menu_id
+        left join sys_user_role ur on rm.role_id = ur.role_id
+        left join sys_role ro on ur.role_id = ro.role_id
+        left join sys_user u on ur.user_id = u.user_id
+        where u.user_id = #{userId}
+        and m.menu_type in ('1', '2')
+        and m.status = '1'
+        order by m.parent_id, m.order_num
     </select>
 
 </mapper>

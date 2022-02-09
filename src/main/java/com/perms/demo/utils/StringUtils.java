@@ -1,6 +1,9 @@
 package com.perms.demo.utils;
 
+import com.perms.demo.utils.constant.Constants;
 import com.perms.demo.utils.text.StrFormatter;
+
+import java.util.Collection;
 
 /**
  * 字符串工具类
@@ -8,6 +11,28 @@ import com.perms.demo.utils.text.StrFormatter;
  * @author ruoyi
  */
 public class StringUtils extends org.apache.commons.lang3.StringUtils {
+
+    /**
+     * * 判断一个Collection是否为空， 包含List，Set，Queue
+     *
+     * @param coll 要判断的Collection
+     * @return true：为空 false：非空
+     */
+    public static boolean isEmpty(Collection<?> coll)
+    {
+        return isNull(coll) || coll.isEmpty();
+    }
+
+    /**
+     * * 判断一个Collection是否非空，包含List，Set，Queue
+     *
+     * @param coll 要判断的Collection
+     * @return true：非空 false：空
+     */
+    public static boolean isNotEmpty(Collection<?> coll)
+    {
+        return !isEmpty(coll);
+    }
 
     /**
      * * 判断一个对象数组是否为空
@@ -112,5 +137,15 @@ public class StringUtils extends org.apache.commons.lang3.StringUtils {
             }
         }
         return false;
+    }
+
+    /**
+     * 是否为http(s)://开头
+     *
+     * @param link 链接
+     * @return 结果
+     */
+    public static boolean ishttp(String link) {
+        return StringUtils.startsWithAny(link, Constants.HTTP, Constants.HTTPS);
     }
 }

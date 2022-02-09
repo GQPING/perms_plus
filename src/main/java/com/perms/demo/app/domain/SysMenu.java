@@ -25,7 +25,7 @@ public class SysMenu implements Serializable {
      */
     private String menuName;
     /**
-     * 菜单类型;1：大屏、2：菜单、3：按钮
+     * 菜单类型;1：目录、2：菜单、3：按钮
      */
     private String menuType;
     /**
@@ -77,6 +77,11 @@ public class SysMenu implements Serializable {
      * 是否缓存;1、缓存、2：不缓存
      */
     private String cache;
+
+    /**
+     * 路由参数
+     */
+    private String query;
 
     /**
      * 子菜单对象列表
@@ -193,6 +198,14 @@ public class SysMenu implements Serializable {
 
     public void setCache(String cache) {
         this.cache = cache;
+    }
+
+    public String getQuery() {
+        return query;
+    }
+
+    public void setQuery(String query) {
+        this.query = query;
     }
 
     public List<SysMenu> getChildren() {

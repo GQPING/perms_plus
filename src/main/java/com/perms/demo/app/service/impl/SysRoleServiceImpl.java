@@ -6,6 +6,7 @@ import com.perms.demo.app.service.SysRoleService;
 import com.perms.demo.utils.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+
 import java.util.Arrays;
 import java.util.HashSet;
 import java.util.List;
@@ -32,10 +33,8 @@ public class SysRoleServiceImpl implements SysRoleService {
     public Set<String> selectRolePermissionByUserId(Long userId) {
         List<SysRole> perms = sysRoleMapper.selectRolePermissionByUserId(userId);
         Set<String> permsSet = new HashSet<>();
-        for (SysRole perm : perms)
-        {
-            if (StringUtils.isNotNull(perm))
-            {
+        for (SysRole perm : perms) {
+            if (StringUtils.isNotNull(perm)) {
                 permsSet.addAll(Arrays.asList(perm.getRolePerms().trim().split(",")));
             }
         }

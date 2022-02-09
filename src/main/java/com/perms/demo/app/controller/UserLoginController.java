@@ -1,6 +1,7 @@
 package com.perms.demo.app.controller;
 
 import com.perms.demo.app.domain.*;
+import com.perms.demo.app.service.SysMenuService;
 import com.perms.demo.security.SysLoginService;
 import com.perms.demo.security.SysPermissionService;
 import com.perms.demo.utils.SecurityUtils;
@@ -24,7 +25,10 @@ import java.util.Set;
 public class UserLoginController {
 
     @Autowired
-    private SysLoginService loginService;
+    private SysLoginService sysLoginService;
+
+    @Autowired
+    private SysMenuService sysMenuService;
 
     @Autowired
     private SysPermissionService sysPermissionService;
@@ -39,7 +43,7 @@ public class UserLoginController {
 //    public AjaxResult login(@RequestBody LoginBody loginBody) {
 //        AjaxResult ajax = AjaxResult.success();
 //        // 生成令牌
-//        String token = loginService.login(loginBody.getUsername(), loginBody.getPassword(), loginBody.getCode(),
+//        String token = sysLoginService.login(loginBody.getUsername(), loginBody.getPassword(), loginBody.getCode(),
 //                loginBody.getUuid());
 //        ajax.put(Constants.TOKEN, token);
 //        return ajax;
@@ -57,15 +61,17 @@ public class UserLoginController {
         loginBody.setPassword(password);
         AjaxResult ajax = AjaxResult.success();
         // 生成令牌
-        String token = loginService.login(loginBody.getUsername(), loginBody.getPassword(), loginBody.getCode(),
+        String token = sysLoginService.login(loginBody.getUsername(), loginBody.getPassword(), loginBody.getCode(),
                 loginBody.getUuid());
         ajax.put(Constants.TOKEN, token);
         return ajax;
     }
 
     /**
-     * 获取用户信息，先登录获取 token，再给该请求的 Headers 配置：
-     * Authorization ： Bearer + token
+     * 获取用户信息
+     *
+     * 用户登录后，取得 token 值
+     * 其它请求配置 Headers 添加：Authorization ： Bearer + token
      * @return 用户信息
      */
     @GetMapping("getInfo")
@@ -84,19 +90,33 @@ public class UserLoginController {
     }
 
     /**
+     * 获取菜单信息
+     *
+     * @return 菜单信息
+     */
+    @GetMapping("getMenus")
+    public AjaxResult getMenus() {
+        //获取当前用户
+        Long userId = SecurityUtils.getUserId();
+        //获取当前用户所有菜单权限
+        List<SysMenu> menus = sysMenuService.selectMenuTreeByUserId(userId);
+        return AjaxResult.success(menus);
+    }
+
+    /**
      * 获取路由信息
      *
      * @return 路由信息
      */
-//    @GetMapping("getRouters")
-//    public AjaxResult getRouters() {
-//        //获取当前用户
-//        Long userId = SecurityUtils.getUserId();
-//        //获取当前用户所有菜单权限
-//        List<SysMenu> menus = menuService.selectMenuTreeByUserId(userId);
-//        //获取用户可访问的路由信息
-//        return AjaxResult.success(menuService.buildMenus(menus));
-//    }
+    @GetMapping("getRouters")
+    public AjaxResult getRouters() {
+        //获取当前用户
+        Long userId = SecurityUtils.getUserId();
+        //获取当前用户所有菜单权限
+        List<SysMenu> menus = sysMenuService.selectMenuTreeByUserId(userId);
+        //获取用户可访问的路由信息
+        return AjaxResult.success(sysMenuService.buildMenus(menus));
+    }
 
     /**
      * 测试接口权限1 , 200 OK
