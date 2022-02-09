@@ -1,4 +1,4 @@
-package com.perms.demo.token;
+package com.perms.demo.security;
 
 import com.perms.demo.app.domain.SysUser;
 import com.perms.demo.app.service.SysMenuService;

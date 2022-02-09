@@ -4,7 +4,7 @@ import com.perms.demo.app.domain.LoginUser;
 import com.perms.demo.app.domain.SysUser;
 import com.perms.demo.app.service.SysUserService;
 import com.perms.demo.exception.BaseException;
-import com.perms.demo.token.SysPermissionService;
+import com.perms.demo.security.SysPermissionService;
 import com.perms.demo.utils.StringUtils;
 import com.perms.demo.utils.enums.UserStatus;
 import org.slf4j.Logger;

@@ -1,10 +1,11 @@
-package com.perms.demo.token;
+package com.perms.demo.security;
 
 import com.perms.demo.app.domain.LoginUser;
 import com.perms.demo.app.domain.SysUser;
 import com.perms.demo.app.service.SysUserService;
 import com.perms.demo.exception.*;
 import com.perms.demo.redis.RedisCache;
+import com.perms.demo.token.TokenService;
 import com.perms.demo.utils.ServletUtils;
 import com.perms.demo.utils.constant.Constants;
 import com.perms.demo.utils.ip.IpUtils;

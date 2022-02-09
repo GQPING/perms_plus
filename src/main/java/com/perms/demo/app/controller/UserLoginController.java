@@ -4,8 +4,8 @@ import com.perms.demo.app.domain.LoginUser;
 import com.perms.demo.app.domain.SysUser;
 import com.perms.demo.app.domain.AjaxResult;
 import com.perms.demo.app.domain.LoginBody;
-import com.perms.demo.token.SysLoginService;
-import com.perms.demo.token.SysPermissionService;
+import com.perms.demo.security.SysLoginService;
+import com.perms.demo.security.SysPermissionService;
 import com.perms.demo.utils.SecurityUtils;
 import com.perms.demo.utils.constant.Constants;
 import lombok.extern.slf4j.Slf4j;
@@ -13,7 +13,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
-import javax.servlet.http.HttpServletRequest;
 import java.util.Set;
 
 /**
