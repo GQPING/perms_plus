@@ -1,7 +1,6 @@
 package com.perms.demo.utils.uuid;
 
-import com.perms.demo.exception.UtilException;
-
+import com.perms.demo.exception.BaseException;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 import java.security.SecureRandom;
@@ -468,7 +467,7 @@ public final class UUID implements java.io.Serializable, Comparable<UUID>
         }
         catch (NoSuchAlgorithmException e)
         {
-            throw new UtilException(e);
+            throw new BaseException(e);
         }
     }
 

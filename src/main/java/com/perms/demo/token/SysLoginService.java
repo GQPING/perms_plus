@@ -4,10 +4,7 @@ import com.perms.demo.app.domain.AjaxResult;
 import com.perms.demo.app.domain.LoginUser;
 import com.perms.demo.app.domain.SysUser;
 import com.perms.demo.app.service.SysUserService;
-import com.perms.demo.exception.CaptchaException;
-import com.perms.demo.exception.CaptchaExpireException;
-import com.perms.demo.exception.ServiceException;
-import com.perms.demo.exception.UserPasswordNotMatchException;
+import com.perms.demo.exception.*;
 import com.perms.demo.redis.RedisCache;
 import com.perms.demo.token.TokenService;
 import com.perms.demo.utils.DateUtils;
@@ -68,10 +65,10 @@ public class SysLoginService {
         } catch (Exception e) {
             if (e instanceof BadCredentialsException) {
                 log.info("-------------- 登录失败：密码错误! --------------");
-                throw new UserPasswordNotMatchException();
+                throw new BaseException("user.password.not.match");
             } else {
                 log.info("-------------- 登录失败：" + e.getMessage() + "--------------");
-                throw new ServiceException(e.getMessage());
+                throw new BaseException(e.getMessage());
             }
         }
 
@@ -99,11 +96,11 @@ public class SysLoginService {
         redisCache.deleteObject(verifyKey);
         if (captcha == null) {
             log.info("-------------- 登录失败：验证码超时! --------------");
-            throw new CaptchaExpireException();
+            throw new BaseException("user.jcaptcha.expire");
         }
         if (!code.equalsIgnoreCase(captcha)) {
             log.info("-------------- 登录失败：验证码错误! --------------");
-            throw new CaptchaException();
+            throw new BaseException("user.jcaptcha.error");
         }
     }
 

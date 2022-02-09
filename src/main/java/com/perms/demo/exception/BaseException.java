@@ -1,15 +1,13 @@
 package com.perms.demo.exception;
 
 import com.perms.demo.utils.MessageUtils;
-import com.perms.demo.utils.StringUtils;
 
 /**
  * 基础异常
  *
  * @author ruoyi
  */
-public class BaseException extends RuntimeException
-{
+public class BaseException extends RuntimeException {
     private static final long serialVersionUID = 1L;
 
     /**
@@ -20,7 +18,7 @@ public class BaseException extends RuntimeException
     /**
      * 错误码
      */
-    private String code;
+    private Integer code;
 
     /**
      * 错误码对应的参数
@@ -32,66 +30,66 @@ public class BaseException extends RuntimeException
      */
     private String defaultMessage;
 
-    public BaseException(String module, String code, Object[] args, String defaultMessage)
-    {
+    public BaseException(String module, Integer code, Object[] args, String defaultMessage) {
         this.module = module;
         this.code = code;
         this.args = args;
         this.defaultMessage = defaultMessage;
     }
 
-    public BaseException(String module, String code, Object[] args)
-    {
+    public BaseException(Throwable e) {
+        super(e.getMessage(), e);
+    }
+
+    public BaseException(String message, Throwable throwable) {
+        super(message, throwable);
+    }
+
+    public BaseException(String module, Integer code, Object[] args) {
         this(module, code, args, null);
     }
 
-    public BaseException(String module, String defaultMessage)
-    {
+    public BaseException(String module, String defaultMessage) {
         this(module, null, null, defaultMessage);
     }
 
-    public BaseException(String code, Object[] args)
-    {
+    public BaseException(Integer code, Object[] args) {
         this(null, code, args, null);
     }
 
-    public BaseException(String defaultMessage)
-    {
+    public BaseException(String defaultMessage) {
         this(null, null, null, defaultMessage);
     }
 
+    public BaseException(Integer code, String defaultMessage) {
+        this(null, code, null, defaultMessage);
+    }
+
     @Override
-    public String getMessage()
-    {
+    public String getMessage() {
         String message = null;
-        if (!StringUtils.isEmpty(code))
-        {
-            message = MessageUtils.message(code, args);
+        if (code != null) {
+            message = MessageUtils.message(String.valueOf(code), args);
         }
-        if (message == null)
-        {
+        if (message == null) {
             message = defaultMessage;
         }
         return message;
     }
 
-    public String getModule()
-    {
+    public String getModule() {
         return module;
     }
 
-    public String getCode()
-    {
+    public Integer getCode() {
         return code;
     }
 
-    public Object[] getArgs()
-    {
+    public Object[] getArgs() {
         return args;
     }
 
-    public String getDefaultMessage()
-    {
+    public String getDefaultMessage() {
         return defaultMessage;
     }
 }

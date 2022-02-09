@@ -3,6 +3,7 @@ package com.perms.demo.app.service.impl;
 import com.perms.demo.app.domain.LoginUser;
 import com.perms.demo.app.domain.SysUser;
 import com.perms.demo.app.service.SysUserService;
+import com.perms.demo.exception.BaseException;
 import com.perms.demo.exception.ServiceException;
 import com.perms.demo.token.SysPermissionService;
 import com.perms.demo.utils.StringUtils;
@@ -48,13 +49,13 @@ public class UserDetailsServiceImpl implements UserDetailsService
         SysUser user = sysUserService.selectUserByUserName(username);
         if (StringUtils.isNull(user)) {
             log.info("登录用户：{} 不存在.", username);
-            throw new ServiceException("登录用户：" + username + " 不存在");
+            throw new BaseException("登录用户：" + username + " 不存在");
         } else if (UserStatus.DELETED.getCode().equals(user.getDelFlag())) {
             log.info("登录用户：{} 已被删除.", username);
-            throw new ServiceException("对不起，您的账号：" + username + " 已被删除");
+            throw new BaseException("对不起，您的账号：" + username + " 已被删除");
         } else if (UserStatus.DISABLE.getCode().equals(user.getStatus())) {
             log.info("登录用户：{} 已被停用.", username);
-            throw new ServiceException("对不起，您的账号：" + username + " 已停用");
+            throw new BaseException("对不起，您的账号：" + username + " 已停用");
         }
         //验证通过，获取用户权限信息
         return createLoginUser(user);

@@ -2,6 +2,7 @@ package com.perms.demo.utils;
 
 import com.perms.demo.app.domain.AjaxResult;
 import com.perms.demo.app.domain.LoginUser;
+import com.perms.demo.exception.BaseException;
 import com.perms.demo.exception.ServiceException;
 import com.perms.demo.utils.constant.HttpStatus;
 import org.springframework.security.core.Authentication;
@@ -26,7 +27,7 @@ public class SecurityUtils
         }
         catch (Exception e)
         {
-            throw new ServiceException("获取用户ID异常", HttpStatus.UNAUTHORIZED);
+            throw new BaseException(HttpStatus.UNAUTHORIZED,"获取用户ID异常");
         }
     }
 
@@ -41,7 +42,7 @@ public class SecurityUtils
         }
         catch (Exception e)
         {
-            throw new ServiceException("获取用户账户异常", HttpStatus.UNAUTHORIZED);
+            throw new BaseException( HttpStatus.UNAUTHORIZED,"获取用户账户异常");
         }
     }
 
@@ -56,7 +57,7 @@ public class SecurityUtils
         }
         catch (Exception e)
         {
-            throw new ServiceException("获取用户信息异常", HttpStatus.UNAUTHORIZED);
+            throw new BaseException(HttpStatus.UNAUTHORIZED,"获取用户信息异常");
         }
     }
 
